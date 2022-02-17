@@ -38,7 +38,7 @@ public class Lesson1 {
         byte a = 7;
         short b = 18200;
         int c = 23;
-        long d = -3256800;
+        long d = -3256800L;
         float e = 25.346f;
         double f = -3.15;
         char g = '☼';
