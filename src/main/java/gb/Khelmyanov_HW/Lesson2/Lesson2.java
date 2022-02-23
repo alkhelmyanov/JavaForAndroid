@@ -24,22 +24,27 @@ public class Lesson2 {
         fillArray2();
         System.out.println();
 
+        // Задание №3.
         System.out.println("Задание №3. Поиск в массиве значений меньше 6 и умножение их на 2");
         changeArray();
         System.out.println();
 
+        // Задание №4.
         System.out.println("Задание №4. Заполнение диагоналей квадратного массива единицами");
         fillDiagonal(20); // Передайте в парраметры размер квадрата
         System.out.println();
 
+        // Задание №5.
         System.out.println("Задание №5. Нахождение минимального и максимального элемента массива");
         findMinMaxElements();
         System.out.println();
 
+        // Задание №6.
         System.out.println("\nЗадание №6. Нахождение баланса в массиве");
         System.out.println("Массив сбалансирован: " + checkBalance());
         System.out.println();
 
+        // Задание №7.
         System.out.println("Задание №7. Смещение элементов в массиве");
         int[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         shiftArray(arr, -5);
