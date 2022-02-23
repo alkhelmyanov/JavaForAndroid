@@ -36,12 +36,8 @@ public class Lesson2 {
         findMinMaxElements();
         System.out.println();
 
-        System.out.println("\nЗадание №6. Нахождение баланса в массиве по простому");
-        System.out.println("Массив сбалансирован: " + checkBalance());
-        System.out.println();
-
         System.out.println("\nЗадание №6. Нахождение баланса в массиве с подсчетом и циклами");
-        System.out.println("Массив сбалансирован: " + checkBalanceV2());
+        System.out.println("Массив сбалансирован: " + checkBalance());
         System.out.println();
     }
 
@@ -158,20 +154,7 @@ public class Lesson2 {
     //endregion
 
     private static boolean checkBalance() {
-        int[] arr = {2, 4, 8, 1, 2, 2, 7};
-        int sum = 0;
-
-        for (int i = 0; i < arr.length; i++) {
-            sum += arr[i];
-        }
-        if (sum % 2 != 0) {
-            return false;
-        }
-        return true;
-    }
-
-    private static boolean checkBalanceV2() {
-        int[] arr = {2, 4, 8, 1, 2, 2, 7,4};
+        int[] arr = {2, 2, 4, 8, 1, 2, 2, 7, 4, 9, 1};
         int border = 1;
         int sumLeft = 0;
         int sumRight = 0;
@@ -184,16 +167,19 @@ public class Lesson2 {
             for (int j = border; j < arr.length; j++) {
                 sumRight += arr[j];
             }
-            System.out.printf("Сумм пр.части = %d Суммю л.части = %d\n", sumLeft, sumRight);
-            if (sumLeft == sumRight){
-                                return true;
+            //System.out.printf("Сумм пр.части = %d Суммю л.части = %d\n", sumLeft, sumRight);
+            if (sumLeft == sumRight) {
                 //System.out.println("Обе части равны");
+                return true;
             } else {
                 border += 1;
                 sumLeft = 0;
                 sumRight = 0;
             }
-        }return false;
+        }
+        return false;
     }
+
+
 
 }
