@@ -52,6 +52,8 @@ public class Lesson2 {
         // Задание №7. Ответ от преподавателя.
         int[] arr01 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         shift(arr01, 2);
+
+        System.out.println(5%9);
     }
 
 
@@ -224,11 +226,10 @@ public class Lesson2 {
     }
     //endregion
 
-    //region Вариант решения задачи №7 от преподавателя.
-
+    //region Вариант решения задачи №7 от преподавателя. Суть: чтобы найти количество смещений, надо найти остаток от деления кол-ва смещений на кол-во элементов в массиве, и потом на этот остаток от деления смещать. Т.е. если на 7 позиции сместить 9 элементов массива (7 % 9 = 3), надо сместить на 3 позиции, если сместить на 5 позиций массив из 9 элементов (5 % 9 = 5), надо сместить на 5 эелементов вправо.
     static void shift(int[] arr, int n) {
         int shift = (arr.length + n % arr.length) % arr.length;// Вычисляем реальное смещение
-        System.out.println("длинна массива = " + arr.length + " + " +"Остаток от деления = "+ n % arr.length + "кратен длинне массива = " + arr.length );
+        System.out.println("длинна массива = " + arr.length + " + " + "Остаток от деления = " + n % arr.length + "кратен длинне массива = " + arr.length);
         for (int i = 0; i < shift; i++) { // Выполним цикл смещения по одному элементу в соответствии с значенимем реального смещения (переменная shift)
             int temp = arr[arr.length - 1]; // Сохраняем значение ПОСЛЕДНЕГО элемента массива
             for (int j = arr.length - 1; j > 0; j--) { // Пройдем по всем элементам массива с конца в начало, заменим значение текущего элемента массива значением элемента, предшествующего текущему
@@ -237,30 +238,5 @@ public class Lesson2 {
             arr[0] = temp; // А как быть с самым первым элементом? Вот как раз из переменной temp мы и получим недостающее значение
         }
     }
-
 }
 
- /* b = arr[j + 1];
-          System.out.println("b= " + b);
-          System.out.println(Arrays.toString(arr));
-          arr[j + 1] = arr[j];
-          System.out.println("Второй элемент со значением " + arr[j]);
-          System.out.println(Arrays.toString(arr));
-          arr[j] = b;
-          System.out.println("Первый элемент со значением " + arr[j]);
-          System.out.println(Arrays.toString(arr));*/
-
-
-/*
-for (int i = 0; i < n; i++) {
-        for (int j = arr.length - 1; j > 0; j--) {
-        //System.out.println("индекс j = " + j + " со значением " + arr[j]);
-        b = arr[j - 1];
-        //System.out.println("b = " + b);
-        //System.out.println(Arrays.toString(arr));
-        arr[j - 1] = arr[j];
-        //System.out.println("Второй элемент со значением " + arr[j]);
-        //System.out.println(Arrays.toString(arr));
-        arr[j] = b;
-// System.out.println("Первый элемент со значением " + arr[j]);
-//System.out.println(Arrays.toString(arr));*/
