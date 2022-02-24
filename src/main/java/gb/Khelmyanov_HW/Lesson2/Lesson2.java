@@ -48,6 +48,10 @@ public class Lesson2 {
         System.out.println("Задание №7. Смещение элементов в массиве");
         int[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         shiftArray(arr, -5);
+
+        // Задание №7. Ответ от преподавателя.
+        int[] arr01 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        shift(arr01, 2);
     }
 
 
@@ -219,7 +223,23 @@ public class Lesson2 {
         }
     }
     //endregion
+
+    //region Вариант решения задачи №7 от преподавателя.
+
+    static void shift(int[] arr, int n) {
+        int shift = (arr.length + n % arr.length) % arr.length;// Вычисляем реальное смещение
+        System.out.println("длинна массива = " + arr.length + " + " +"Остаток от деления = "+ n % arr.length + "кратен длинне массива = " + arr.length );
+        for (int i = 0; i < shift; i++) { // Выполним цикл смещения по одному элементу в соответствии с значенимем реального смещения (переменная shift)
+            int temp = arr[arr.length - 1]; // Сохраняем значение ПОСЛЕДНЕГО элемента массива
+            for (int j = arr.length - 1; j > 0; j--) { // Пройдем по всем элементам массива с конца в начало, заменим значение текущего элемента массива значением элемента, предшествующего текущему
+                arr[j] = arr[j - 1];
+            }
+            arr[0] = temp; // А как быть с самым первым элементом? Вот как раз из переменной temp мы и получим недостающее значение
+        }
+    }
+
 }
+
  /* b = arr[j + 1];
           System.out.println("b= " + b);
           System.out.println(Arrays.toString(arr));
