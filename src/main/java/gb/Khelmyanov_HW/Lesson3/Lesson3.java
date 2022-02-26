@@ -50,7 +50,7 @@ public class Lesson3 {
         boolean f = true;
         while (f) {
             System.out.print("Ваш выбор: ");
-            int choice = scanner.nextInt();
+            int choice = inputOfHuman();
             switch (choice) {
                 case 0:
                     f = false;
@@ -65,11 +65,14 @@ public class Lesson3 {
                     break;
                 default:
                     System.out.println("К сожалению других игр пока нет :(");
+
             }
-            //System.out.println("Вы хотите сыграть еше в какую нибудь игру?");
+
         }
 
     }
+
+
     //endregion
 
     //region Тело игры "Угадай число"
@@ -88,8 +91,7 @@ public class Lesson3 {
 
         while (isWin && count > 0) {
             System.out.print("\nВаш вариант ответа: ");
-            int human = attemptOfHuman();
-
+            int human = inputOfHuman();
             if (attemptOfComputer == human) {
                 System.out.println("\n!!!!!! Поздравляем, вы УГАДАЛИ число !!!!!!");
                 isWin = false;
@@ -143,17 +145,14 @@ public class Lesson3 {
     }
     //endregion
 
-    //region Ход пользователя
-    private static int attemptOfHuman() {
+    //region Ход пользователя. В нем находится обработка от нежелательных значений.
+    private static int inputOfHuman() {
         // int rangeForGameGN = 0;
         if (scanner.hasNextInt()) {
-
-            int inputOfHuman = scanner.nextInt();
-
-            return inputOfHuman;
+            return scanner.nextInt();
         } else {
             System.out.println("Вы ввели некорректное число или выпадающее из диапазона");
-            scanner.nextInt();
+            scanner.nextLine();
         }
         return -1;
     }
