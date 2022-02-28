@@ -13,9 +13,9 @@ public class Lesson3 {
 
     public static void main(String[] args) {
         // метод с меню для обоих игр
-        //mainMenu();
+        mainMenu();
         //guessTheNumber();
-        guessTheWord();
+        //guessTheWord();
         //attemptOfHuman();
         //attemptOfComputer();
         //gameChoise();
@@ -101,7 +101,7 @@ public class Lesson3 {
             count--;
         }
         System.out.println("\nЗагаданное компьютером число было: " + attemptOfComputer);
-        endOfGame();
+        endOfGame(1);
 
     }
 
@@ -109,13 +109,16 @@ public class Lesson3 {
 
     //region Тело игры "Угадай слово"
     private static void guessTheWord() {
-
+        System.out.println("\n=================================");
         System.out.println("Вы запустили игру угадай Слово");
+        System.out.print("===================================");
+        System.out.println("\nПопробуйте угадать название фрукта или овоща, который загадал компьютер.");
+        System.out.print("------------------------------------");
 
         // Загаданное с помощью Random компьютером слово
         String computerStep = selectWordsFromArray();
-        System.out.print("Компьютер загадал слово: ");
-        System.out.println(computerStep);
+        //System.out.print("Компьютер загадал слово: ");
+        //System.out.println(computerStep);
 
         // Заполняем computerEmptyArray словом которое придумал компьютер
         char[] computerEmptyArray = {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'};
@@ -123,7 +126,7 @@ public class Lesson3 {
             char charFromComputerWord = wordsToChar(i, computerStep);
             computerEmptyArray[i] = charFromComputerWord;
         }
-        System.out.println(computerEmptyArray);
+        //System.out.println(computerEmptyArray);
         char[] humanEmptyArray;
         char[] additionalArray;
         int countOfMistake = 0;
@@ -132,14 +135,13 @@ public class Lesson3 {
             // Игрок вводит свое слово и заполняется этим словом массив humanEmptyArray
             countOfMistake = 0;
             humanEmptyArray = new char[]{'*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'};
-            System.out.println("Введите слово: ");
+            System.out.print("\nВведите название предполагаемого фрукта: ");
             String humanStep = inputOfHumanString();
             for (int i = 0; i < humanStep.length(); i++) {
                 char charFromHumanWord = wordsToChar(i, humanStep);
                 humanEmptyArray[i] = charFromHumanWord;
             }
-            System.out.println(humanEmptyArray);
-
+            //System.out.println(humanEmptyArray);
 
             //Создается дополнительный массив в который посимвольно записывается результат сравнения слова человека и компьютера
 
@@ -147,29 +149,28 @@ public class Lesson3 {
 
             for (int i = 0; i < 15; i++) {
                 if (computerEmptyArray[i] == humanEmptyArray[i]) {
-                    System.out.println(additionalArray[i] = computerEmptyArray[i]);
+                    additionalArray[i] = computerEmptyArray[i];
                 } else {
                     countOfMistake++;
                 }
-
             }
-            System.out.println("Кол-во ошибок:" + countOfMistake);
-            System.out.print("Ответ игрока: ");
-            System.out.println(humanEmptyArray);
-            System.out.print("Загаданное компьютером словом: ");
-            System.out.println(computerEmptyArray);
-            System.out.print("Сравнения ответов: ");
+            //System.out.println("Кол-во ошибок:" + countOfMistake);
+            //System.out.print("Ответ игрока: ");
+            //System.out.println(humanEmptyArray);
+            //System.out.print("Загаданное компьютером словом: ");
+            //System.out.println(computerEmptyArray);
+            System.out.print("\nСовпавшие буквы загаданного слова: ");
             System.out.println(additionalArray);
 
         } while (countOfMistake > 0);
         System.out.println("!!! Поздравляем, вы угадали слово !!!");
-
+        endOfGame(2);
     }
 
     //endregion
 
     // region Метод endOfGame завершающий игру и предлагающий ее либо продолжить либо выйти в главное меню
-    private static void endOfGame() {
+    private static void endOfGame(int numberOfGame) {
         System.out.println("\n----------------");
         System.out.println("Игра закончена");
         System.out.print("----------------");
@@ -182,7 +183,10 @@ public class Lesson3 {
 
         System.out.print("\nВаш выбор: ");
         if (scanner.nextInt() == 1) {
-            guessTheNumber();
+            switch (numberOfGame) {
+                case 1 -> guessTheNumber();
+                case 2 -> guessTheWord();
+            }
         } else {
             mainMenu();
         }
@@ -237,49 +241,24 @@ public class Lesson3 {
     //region Этот метод принимает порядковый номер символа и слово которое надо разобрать на символы
     private static char wordsToChar(int indexOfLetter, String strWord) {
         char a = strWord.charAt(indexOfLetter);
-        System.out.println("Индекс i: " + indexOfLetter + "     " + a + "     ");
-        indexOfLetter++;
+        //System.out.println("Индекс i: " + indexOfLetter + "     " + a + "     ");
+        //indexOfLetter++;
         return a;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-   /* private static void discriptionForGames() {
-        String discriptForGameOne;
-        String discriptForGameTwo;
-    }*/
-
 }
 
-//region
- /*      //Создать массив со словами
-        String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot", "cherry", "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive", "pea", "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"};
 
-        //Сделать генератор случайных чисел который будет выбирать слово
+/* Общие проблемы:
+1. После перехода из меню: продолжить игру или выйти в главное меню, первым делом вставляется ентер, надо как то очищать буфер после этого запроса.
 
+Игра "Угадай число".
+1. Обработать ошибку ввода букв вместо чисел.
 
-        //Разбить слово на символы и записать их в новый массив
+Игра "Угадай слово".
+1. Обработать ошибку когда слово больше 15 символов.
+2. Сделать выход из игры, если надоест угадывать.
+3. После трех попыток предложить игроку открыть пару букв
 
-        //Ввод попытки слова пользователем
-
-        System.out.println("Введите угадываемое слово: ");
-        String HumanAttempt = scanner.nextLine();
-
-        //Разбить слово пользователя на символы и записать в новый
-
-        //Создать массив со звездочками
-        //Сравннить слово компьютера и пользователя и внести угаданные буквы в массив со звездочками
-        //Если все символы совпадают вывести поздравление если нет дать пользователю возможность снова ввести слово
 */
-//endregion
 
-// может ли быть пустым оператор else, и если if не нуждается в else, можно ли использовать другой способ
+
