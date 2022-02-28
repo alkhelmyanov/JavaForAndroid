@@ -1,15 +1,12 @@
 package gb.Khelmyanov_HW.Lesson3;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Lesson3 {
     static Random random = new Random();
     static Scanner scanner = new Scanner(System.in);
-    String HumanWord;
-    String computerWord;
+
 
     public static void main(String[] args) {
         // метод с меню для обоих игр
@@ -52,24 +49,16 @@ public class Lesson3 {
             System.out.print("Ваш выбор: ");
             int choice = inputOfHumanInt();
             switch (choice) {
-                case 0:
+                case 0 -> {
                     f = false;
-                    System.out.println("Спасибо что заглянули к нам.\nБудем рады видеть Вас снова!!!");
+                    System.out.print("Спасибо что заглянули к нам.\nБудем рады видеть Вас снова!!!");
                     scanner.close();
-                    break;
-                case 1:
-                    guessTheNumber();
-                    break;
-                case 2:
-                    guessTheWord();
-                    break;
-                default:
-                    System.out.println("К сожалению других игр пока нет :(");
-
+                }
+                case 1 -> guessTheNumber();
+                case 2 -> guessTheWord();
+                default -> System.out.println("К сожалению других игр пока нет :(");
             }
-
         }
-
     }
 
 
@@ -136,7 +125,7 @@ public class Lesson3 {
 
         do {
             // Игрок вводит свое слово и заполняется этим словом массив humanEmptyArray
-                        countOfMistake = 0;
+            countOfMistake = 0;
 
             humanEmptyArray = new char[]{'*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'};
             System.out.print("\nВведите название предполагаемого фрукта: ");
@@ -166,19 +155,19 @@ public class Lesson3 {
             System.out.print("\nСовпавшие буквы загаданного слова: ");
             System.out.println(additionalArray);
 
-            countOfAttempt ++;
+            countOfAttempt++;
             //System.out.println("Попытка: " + countOfAttempt);
 
             //Сделанна маленькая подсказка если совсем туго угадывается
-            switch (countOfAttempt){
-                case 3 -> System.out.println("1я буква загаданного слова: " + computerEmptyArray[0]);
-                case 5 -> System.out.println("3я буква загаданного слова: " + computerEmptyArray[2]);
-                case 7 -> System.out.println("5я буква загаданного слова: " + computerEmptyArray[4]);
+            switch (countOfAttempt) {
+                case 3 -> System.out.println("Подсказка!!! 1я буква загаданного слова: " + computerEmptyArray[0]);
+                case 5 -> System.out.println("Подсказка!!! 3я буква загаданного слова: " + computerEmptyArray[2]);
+                case 7 -> System.out.println("Подсказка!!! 5я буква загаданного слова: " + computerEmptyArray[4]);
             }
 
 
         } while (countOfMistake > 0);
-        System.out.println("\n!!! Поздравляем, вы угадали слово !!!");
+        System.out.println("\n!!! Поздравляем, вы угадали слово c " + countOfAttempt + " попытки!!!");
         endOfGame(2);
     }
 
@@ -255,15 +244,18 @@ public class Lesson3 {
     //endregion
     //region Этот метод принимает порядковый номер символа и слово которое надо разобрать на символы
     private static char wordsToChar(int indexOfLetter, String strWord) {
-        char a = strWord.charAt(indexOfLetter);
+        return strWord.charAt(indexOfLetter);
         //System.out.println("Индекс i: " + indexOfLetter + "     " + a + "     ");
         //indexOfLetter++;
-        return a;
+
     }
 }
 
 
 /*
+Общие проблемы:
+После окончания игры, если выходить через "0" из игры в главное меню, а потом так же через "0" из игры вообще, выдает ошибку.
+
 Игра "Угадай число".
 1. Обработать ошибку ввода букв вместо чисел. Засчитывает как несколько ходов.
 
