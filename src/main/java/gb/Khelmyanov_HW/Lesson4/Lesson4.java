@@ -1,5 +1,6 @@
 package gb.Khelmyanov_HW.Lesson4;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -19,6 +20,7 @@ public class Lesson4 {
     static char[][] field;
     static int lineForWin;
 
+    //Эти переменные необходимы для проверки на победу и для имитации ИИ компьютера.
     static int[][] fieldForWinCheck;
     static int humanForWinCheck = 7;
     static int computerForWinCheck = 3;
@@ -35,18 +37,18 @@ public class Lesson4 {
 
     public static void main(String[] args) {
         //Создать вначале игры меню с Настройками, где будет выбор играть с человеком или компьютером, плюс размер поля, плюс кол-во знаков в ряд для победы.
-
+        initializeField();
+        initializeFieldForWin();
         mainMenuTicTacToe();
         //renderingMenuOptions();
-
+        //checkWin(lineForWin);
 
     }
 
 
     // Отрисовка главного меню
     private static void mainMenuTicTacToe() {
-        initializeField();
-        initializeFieldForWin();
+
 
         //Печатаем верхнюю часть меню с названием игры
         System.out.println();
@@ -57,11 +59,12 @@ public class Lesson4 {
         System.out.println(rightUpCorner);
 
         printLineWithQuotes(nameOfGame);
-        printLineWithQuotes("-----------------------------");
-        printLineWithQuotes("  1 - Начать игру            ");
-        printLineWithQuotes("  2 - Настройки              ");
-        printLineWithQuotes("  0 - Выход из игры          ");
-        printLineWithQuotes("-----------------------------");
+        printLineWithQuotes("--------------------------------");
+        printLineWithQuotes("  1 - Начать игру c компьютером ");
+        printLineWithQuotes("  2 - Начать игру cо 2м игроком ");
+        printLineWithQuotes("  3 - Настройки                 ");
+        printLineWithQuotes("  0 - Выход из игры             ");
+        printLineWithQuotes("--------------------------------");
         //Печать нижней части
         System.out.print(leftDownCorner);
         for (int i = 0; i < nameOfGame.length() + 2; i++) {
@@ -73,7 +76,8 @@ public class Lesson4 {
         int mainMenuChoice = scanner.nextInt();
         switch (mainMenuChoice) {
             case 1 -> gameHumanToComputer();
-            case 2 -> renderingMenuOptions();
+            case 2 -> gameHumanToHuman();
+            case 3 -> renderingMenuOptions();
             // case 0 ->
         }
     }
@@ -266,8 +270,8 @@ public class Lesson4 {
 
         int x = scanner.nextInt() - 1;
         int y = scanner.nextInt() - 1;
-        if (x < fieldSizeX && y < fieldSizeY) {
 
+        if (x < fieldSizeX && y < fieldSizeY) {
             if (x == -1 && y == -1) {
                 System.out.println("Вы сдались. Компьютер победил!!!");
                 System.out.println("Нажмите \"Enter\" для выхода в главное меню");
@@ -277,6 +281,8 @@ public class Lesson4 {
             } else {
                 field[x][y] = DOT_HUMAN_1;
                 fieldForWinCheck[x][y] = humanForWinCheck;
+
+
             }
 
         } else {
@@ -292,6 +298,7 @@ public class Lesson4 {
         int x = scanner.nextInt() - 1;
         int y = scanner.nextInt() - 1;
         field[x][y] = DOT_HUMAN_2;
+        fieldForWinCheck[x][y] = computerForWinCheck;
 
     }
 
@@ -309,10 +316,15 @@ public class Lesson4 {
         do {
             System.out.println("Ход игрока, ваш символ \"X\":");
             humanOneStep();
-            renderingField(field);
+            checkWin(lineForWin);
+            renderingField(fieldForWinCheck);
+            //renderingField(field);
 
-            computerStep();
-            renderingField(field);
+
+            humanTwoStep();
+            checkWin(lineForWin);
+            renderingField(fieldForWinCheck);
+            //renderingField(field);
         } while (true);
     }
 
@@ -323,10 +335,94 @@ public class Lesson4 {
             humanOneStep();
             renderingField(field);
             renderingField(fieldForWinCheck);
+            checkWin(lineForWin);
 
             computerStep();
 
         } while (true);
+    }
+
+    public static void checkWin(int lineForWin) {
+
+        System.out.println(Arrays.deepToString(fieldForWinCheck));
+        for (int i = 0; i < fieldSizeX; i++) {
+            for (int j = 0; j < fieldSizeY; j++) {
+                if (fieldForWinCheck[i][j] == 7) {
+                    chekLineForPCorHumanfill(i, j,7);
+
+                    System.out.println(i + " " + j + " = 7");
+                    renderingField(fieldForWinCheck);
+                }
+                if (fieldForWinCheck[i][j] == 3) {
+                    chekLineForPCorHumanfill(i, j, 3);
+
+                    System.out.println(i + " " + j + " = 3");
+                    renderingField(fieldForWinCheck);
+                }
+            }
+        }
+    }
+   /* public static void chekLineForPCorHumanfill(int i, int j) {
+
+            fieldForWinCheck[i - 1][j - 1] = 5;
+            fieldForWinCheck[i - 1][j] = 5;
+            fieldForWinCheck[i - 1][j + 1] = 5;
+            fieldForWinCheck[i][j - 1] = 5;
+            fieldForWinCheck[i][j + 1] = 5;
+            fieldForWinCheck[i + 1][j - 1] = 5;
+            fieldForWinCheck[i + 1][j] = 5;
+            fieldForWinCheck[i + 1][j + 1] = 5;
+
+    }*/
+
+    // Метод проверяет не выходит ли значение за пределы массива
+   private static boolean isCellValid(int x, int y) {
+       return x >= 0 && x < fieldSizeX && y >= 0 && y < fieldSizeY;
+   }
+    // Этот метод заполняет соседние вокруг хода игрока ячейки определенным значением
+    public static void chekLineForPCorHumanfill(int i, int j, int winCheckNumber) {
+
+       int first = 5; // значение, которое выставляется вокруг первого числа
+       int second = 2;// значение, которое выставляется вокруг второго числа
+       int numberForCalculatedWin; // Значение либо first (если первый игрок сходил) Либо second (если второй сходил)
+       if (winCheckNumber == 7) {
+           numberForCalculatedWin = first;
+       } else {
+           numberForCalculatedWin = second;
+       } // условие выполняется если индекс не выходит за пределы массива, и значение ячейки не является значением хода одного из игроков
+           if (isCellValid(i - 1, j - 1) && fieldForWinCheck[i - 1][j - 1] != 7 && fieldForWinCheck[i - 1][j - 1] != 3){
+               fieldForWinCheck[i - 1][j - 1] = numberForCalculatedWin;
+           }
+           if (isCellValid(i - 1, j) && fieldForWinCheck[i - 1][j] != 7 && fieldForWinCheck[i - 1][j] != 3) {
+               fieldForWinCheck[i - 1][j] = numberForCalculatedWin;
+           }
+           if (isCellValid(i - 1, j + 1) && fieldForWinCheck[i - 1][j + 1] != 7 && fieldForWinCheck[i - 1][j + 1]!=3){
+               fieldForWinCheck[i - 1][j + 1] = numberForCalculatedWin;
+           }
+           if (isCellValid(i, j - 1) && fieldForWinCheck[i][j - 1] != 7 && fieldForWinCheck[i][j - 1] != 3){
+               fieldForWinCheck[i][j - 1] = numberForCalculatedWin;
+           }
+           if (isCellValid(i, j + 1) && fieldForWinCheck[i][j + 1] != 7 && fieldForWinCheck[i][j + 1] != 3){
+               fieldForWinCheck[i][j + 1] = numberForCalculatedWin;
+           }
+           if (isCellValid(i + 1, j - 1) && fieldForWinCheck[i + 1][j - 1] != 7 && fieldForWinCheck[i + 1][j - 1] != 3){
+               fieldForWinCheck[i + 1][j - 1] = numberForCalculatedWin;
+           }
+           if (isCellValid(i + 1, j) && fieldForWinCheck[i + 1][j] != 7 && fieldForWinCheck[i + 1][j] != 3){
+               fieldForWinCheck[i + 1][j] = numberForCalculatedWin;
+           }
+           if (isCellValid(i + 1, j + 1) && fieldForWinCheck[i + 1][j + 1] != 7 && fieldForWinCheck[i + 1][j + 1] != 3){
+               fieldForWinCheck[i + 1][j + 1] = numberForCalculatedWin;
+           }
+    }
+
+
+    public static boolean cellIsEmpty(int x, int y) {
+        if (fieldForWinCheck[x][y] == 3 || fieldForWinCheck[x][y] == 7) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 
