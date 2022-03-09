@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Lesson4 {
 
-    static String nameOfGame = "Крестики Нолики / tic-tac-toe";
+    static String nameOfGame = "Крестики Нолики / tic-tac-toe   ";
 
     static final char DOT_HUMAN_1 = 'X';
     static final char DOT_HUMAN_2 = '0';
@@ -86,21 +86,19 @@ public class Lesson4 {
     private static void renderingMenuOptions() {
         System.out.println();
         System.out.print(leftUpCorner);
-        for (int i = 0; i < nameOfGame.length() + 6; i++) {
+        for (int i = 0; i < nameOfGame.length() + 3; i++) {
             System.out.print(horizontalLine);
         }
         System.out.println(rightUpCorner);
         printLineWithQuotes("---------------------------------");
-        printLineWithQuotes(" 1 - Игра со 2м игроком          ");
-        printLineWithQuotes(" 2 - Игра с компьютером          ");
-        printLineWithQuotes(" 3 - Размер игрового поля   " + fieldSizeX + " x " + fieldSizeY);
-        printLineWithQuotes(" 4 - Длинна победной линии    " + lineForWin + "  ");
+        printLineWithQuotes(" 1 - Размер игрового поля   " + fieldSizeX + " x " + fieldSizeY);
+        printLineWithQuotes(" 2 - Длинна победной линии    " + lineForWin + "  ");
         printLineWithQuotes(" 0 - Выйти из настройки          ");
         printLineWithQuotes("---------------------------------");
 
         //Печатаем нижнюю часть игрового поля
         System.out.print(leftDownCorner);
-        for (int i = 0; i < nameOfGame.length() + 6; i++) {
+        for (int i = 0; i < nameOfGame.length() + 3; i++) {
             System.out.print(horizontalLine);
         }
         System.out.println(rightDownCorner);
@@ -112,14 +110,12 @@ public class Lesson4 {
         System.out.print("Выберете опцию: ");
         int menuOptionsChoice = scanner.nextInt();
         switch (menuOptionsChoice) {
-            // case 1 -> ;
-            // case 2 -> ;
-            case 3:
+            case 1:
                 System.out.println("Введите размер игрового поля (через пробел): ");
                 fieldSizeX = scanner.nextInt();
                 fieldSizeY = scanner.nextInt();
                 break;
-            case 4:
+            case 2:
                 System.out.print("Введите длину победной линии: ");
                 lineForWin = scanner.nextInt();
                 break;
@@ -281,15 +277,11 @@ public class Lesson4 {
             } else {
                 field[x][y] = DOT_HUMAN_1;
                 fieldForWinCheck[x][y] = humanForWinCheck;
-
-
             }
-
         } else {
             System.out.println("Вы ввели значение выходящие за пределы поля. Повторите ввод");
             humanOneStep();
         }
-
     }
 
     // Ход второго игрока
@@ -318,13 +310,13 @@ public class Lesson4 {
             humanOneStep();
             checkWin(lineForWin);
             renderingField(fieldForWinCheck);
-            //renderingField(field);
+            renderingField(field);
 
 
             humanTwoStep();
             checkWin(lineForWin);
             renderingField(fieldForWinCheck);
-            //renderingField(field);
+            renderingField(field);
         } while (true);
     }
 
@@ -335,6 +327,7 @@ public class Lesson4 {
             humanOneStep();
             renderingField(field);
             renderingField(fieldForWinCheck);
+            //checkWin2();
             checkWin(lineForWin);
 
             computerStep();
@@ -347,83 +340,86 @@ public class Lesson4 {
         System.out.println(Arrays.deepToString(fieldForWinCheck));
         for (int i = 0; i < fieldSizeX; i++) {
             for (int j = 0; j < fieldSizeY; j++) {
-                if (fieldForWinCheck[i][j] == 7) {
-                    chekLineForPCorHumanfill(i, j,7);
+                if (fieldForWinCheck[i][j] == humanForWinCheck) {
+                    chekLineForPCorHumanfill(i, j, humanForWinCheck);
 
-                    System.out.println(i + " " + j + " = 7");
+                    System.out.println(i + " " + j + " = " + humanForWinCheck);
                     renderingField(fieldForWinCheck);
                 }
-                if (fieldForWinCheck[i][j] == 3) {
-                    chekLineForPCorHumanfill(i, j, 3);
+                if (fieldForWinCheck[i][j] == computerForWinCheck) {
+                    chekLineForPCorHumanfill(i, j, computerForWinCheck);
 
-                    System.out.println(i + " " + j + " = 3");
+                    System.out.println(i + " " + j + " = " + computerForWinCheck);
                     renderingField(fieldForWinCheck);
                 }
             }
         }
     }
-   /* public static void chekLineForPCorHumanfill(int i, int j) {
-
-            fieldForWinCheck[i - 1][j - 1] = 5;
-            fieldForWinCheck[i - 1][j] = 5;
-            fieldForWinCheck[i - 1][j + 1] = 5;
-            fieldForWinCheck[i][j - 1] = 5;
-            fieldForWinCheck[i][j + 1] = 5;
-            fieldForWinCheck[i + 1][j - 1] = 5;
-            fieldForWinCheck[i + 1][j] = 5;
-            fieldForWinCheck[i + 1][j + 1] = 5;
-
-    }*/
 
     // Метод проверяет не выходит ли значение за пределы массива
-   private static boolean isCellValid(int x, int y) {
-       return x >= 0 && x < fieldSizeX && y >= 0 && y < fieldSizeY;
-   }
+    private static boolean isCellValid(int x, int y) {
+        return x >= 0 && x < fieldSizeX && y >= 0 && y < fieldSizeY;
+    }
+
     // Этот метод заполняет соседние вокруг хода игрока ячейки определенным значением
     public static void chekLineForPCorHumanfill(int i, int j, int winCheckNumber) {
 
-       int first = 5; // значение, которое выставляется вокруг первого числа
-       int second = 2;// значение, которое выставляется вокруг второго числа
-       int numberForCalculatedWin; // Значение либо first (если первый игрок сходил) Либо second (если второй сходил)
-       if (winCheckNumber == 7) {
-           numberForCalculatedWin = first;
-       } else {
-           numberForCalculatedWin = second;
-       } // условие выполняется если индекс не выходит за пределы массива, и значение ячейки не является значением хода одного из игроков
-           if (isCellValid(i - 1, j - 1) && fieldForWinCheck[i - 1][j - 1] != 7 && fieldForWinCheck[i - 1][j - 1] != 3){
-               fieldForWinCheck[i - 1][j - 1] = numberForCalculatedWin;
-           }
-           if (isCellValid(i - 1, j) && fieldForWinCheck[i - 1][j] != 7 && fieldForWinCheck[i - 1][j] != 3) {
-               fieldForWinCheck[i - 1][j] = numberForCalculatedWin;
-           }
-           if (isCellValid(i - 1, j + 1) && fieldForWinCheck[i - 1][j + 1] != 7 && fieldForWinCheck[i - 1][j + 1]!=3){
-               fieldForWinCheck[i - 1][j + 1] = numberForCalculatedWin;
-           }
-           if (isCellValid(i, j - 1) && fieldForWinCheck[i][j - 1] != 7 && fieldForWinCheck[i][j - 1] != 3){
-               fieldForWinCheck[i][j - 1] = numberForCalculatedWin;
-           }
-           if (isCellValid(i, j + 1) && fieldForWinCheck[i][j + 1] != 7 && fieldForWinCheck[i][j + 1] != 3){
-               fieldForWinCheck[i][j + 1] = numberForCalculatedWin;
-           }
-           if (isCellValid(i + 1, j - 1) && fieldForWinCheck[i + 1][j - 1] != 7 && fieldForWinCheck[i + 1][j - 1] != 3){
-               fieldForWinCheck[i + 1][j - 1] = numberForCalculatedWin;
-           }
-           if (isCellValid(i + 1, j) && fieldForWinCheck[i + 1][j] != 7 && fieldForWinCheck[i + 1][j] != 3){
-               fieldForWinCheck[i + 1][j] = numberForCalculatedWin;
-           }
-           if (isCellValid(i + 1, j + 1) && fieldForWinCheck[i + 1][j + 1] != 7 && fieldForWinCheck[i + 1][j + 1] != 3){
-               fieldForWinCheck[i + 1][j + 1] = numberForCalculatedWin;
-           }
+        int first = 1; // значение, которое выставляется вокруг первого числа
+        int second = 2;// значение, которое выставляется вокруг второго числа
+        int numberForCalculatedWin; // Значение либо first (если первый игрок сходил) Либо second (если второй сходил)
+        if (winCheckNumber == humanForWinCheck) {
+            numberForCalculatedWin = first;
+        } else {
+            numberForCalculatedWin = second;
+        } // условие выполняется если индекс не выходит за пределы массива, и значение ячейки не является значением хода одного из игроков
+        if (isCellValid(i - 1, j - 1) && fieldForWinCheck[i - 1][j - 1] != humanForWinCheck && fieldForWinCheck[i - 1][j - 1] != computerForWinCheck) {
+            fieldForWinCheck[i - 1][j - 1] = numberForCalculatedWin;
+        }
+        if (isCellValid(i - 1, j) && fieldForWinCheck[i - 1][j] != humanForWinCheck && fieldForWinCheck[i - 1][j] != computerForWinCheck) {
+            fieldForWinCheck[i - 1][j] = numberForCalculatedWin;
+        }
+        if (isCellValid(i - 1, j + 1) && fieldForWinCheck[i - 1][j + 1] != humanForWinCheck && fieldForWinCheck[i - 1][j + 1] != computerForWinCheck) {
+            fieldForWinCheck[i - 1][j + 1] = numberForCalculatedWin;
+        }
+        if (isCellValid(i, j - 1) && fieldForWinCheck[i][j - 1] != humanForWinCheck && fieldForWinCheck[i][j - 1] != computerForWinCheck) {
+            fieldForWinCheck[i][j - 1] = numberForCalculatedWin;
+        }
+        if (isCellValid(i, j + 1) && fieldForWinCheck[i][j + 1] != humanForWinCheck && fieldForWinCheck[i][j + 1] != computerForWinCheck) {
+            fieldForWinCheck[i][j + 1] = numberForCalculatedWin;
+        }
+        if (isCellValid(i + 1, j - 1) && fieldForWinCheck[i + 1][j - 1] != humanForWinCheck && fieldForWinCheck[i + 1][j - 1] != computerForWinCheck) {
+            fieldForWinCheck[i + 1][j - 1] = numberForCalculatedWin;
+        }
+        if (isCellValid(i + 1, j) && fieldForWinCheck[i + 1][j] != humanForWinCheck && fieldForWinCheck[i + 1][j] != computerForWinCheck) {
+            fieldForWinCheck[i + 1][j] = numberForCalculatedWin;
+        }
+        if (isCellValid(i + 1, j + 1) && fieldForWinCheck[i + 1][j + 1] != humanForWinCheck && fieldForWinCheck[i + 1][j + 1] != computerForWinCheck) {
+            fieldForWinCheck[i + 1][j + 1] = numberForCalculatedWin;
+        }
     }
 
 
     public static boolean cellIsEmpty(int x, int y) {
-        if (fieldForWinCheck[x][y] == 3 || fieldForWinCheck[x][y] == 7) {
+        if (fieldForWinCheck[x][y] == computerForWinCheck || fieldForWinCheck[x][y] == humanForWinCheck) {
             return false;
         } else {
             return true;
         }
     }
 
+    public static void checkWin2() {
+        int winCount = 0;
+        do {
+            for (int i = 0; i < fieldSizeX; i++) {
+                for (int j = 0; j < fieldSizeY; j++) {
+                    if (fieldForWinCheck[i][j] == 7) {
+                        winCount++;
+                    } else {
+                        winCount = 0;
+                    }
+                }
+            }
+        } while (winCount != 3);
 
+    }
 }
