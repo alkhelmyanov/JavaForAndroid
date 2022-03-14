@@ -133,7 +133,7 @@ public class Lesson4 {
         System.out.println(verticalLine);
     }
 
-      //Иницализация поля для вычисления победы
+    //Иницализация поля для вычисления победы
     private static void initializeFieldForWin() {
 
         fieldForWinCheck = new int[fieldSizeX][fieldSizeY];
@@ -399,36 +399,56 @@ public class Lesson4 {
         }
     }
 
-    public static boolean checkWinByHorizontalLine(char charOfPlayer){
+    public static boolean checkWinByHorizontalLine(char charOfPlayer) {
         int winCheckCount = 0;
+        // проверка горизонтали на победу
         for (int i = 0; i < fieldSizeX; i++) {
             for (int j = 0; j < fieldSizeY; j++) {
-                if(field[i][j] == charOfPlayer){
-                    winCheckCount ++;
+                if (field[i][j] == charOfPlayer) {
+                    winCheckCount++;
                     System.out.println("счетчик равен: " + winCheckCount);
-                    if (winCheckCount == lineForWin){
+                    if (winCheckCount == lineForWin) {
                         System.out.println("Вы победили");
                         return true;
                     }
-                }else{
+                } else {
                     winCheckCount = 0;
                 }
             }
         }
+        // проверка вертикали на победу
+        winCheckCount = 0;
         for (int i = 0; i < fieldSizeX; i++) {
             for (int j = 0; j < fieldSizeY; j++) {
-                if(field[i][j] == charOfPlayer){
-                    winCheckCount ++;
+                if (field[j][i] == charOfPlayer) {
+                    winCheckCount++;
                     System.out.println("счетчик равен: " + winCheckCount);
-                    if (winCheckCount == lineForWin){
+                    if (winCheckCount == lineForWin) {
                         System.out.println("Вы победили");
                         return true;
                     }
-                }else{
+                } else {
                     winCheckCount = 0;
                 }
             }
         }
+        // проверка диагонали на победу
+        winCheckCount = 0;
+        for (int i = 0; i < fieldSizeX; i++) {
+            for (int j = 0; j < fieldSizeY; j++) {
+                if (field[j][i] == charOfPlayer) {
+                    winCheckCount++;
+                    System.out.println("счетчик равен: " + winCheckCount);
+                    if (winCheckCount == lineForWin) {
+                        System.out.println("Вы победили");
+                        return true;
+                    }
+                } else {
+                    winCheckCount = 0;
+                }
+            }
+        }
+
 
         return false;
     }
