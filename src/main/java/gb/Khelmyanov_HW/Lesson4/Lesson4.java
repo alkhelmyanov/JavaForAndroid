@@ -133,13 +133,7 @@ public class Lesson4 {
         System.out.println(verticalLine);
     }
 
-    //Проверка на победу
-    public static void wincheck() {
-
-
-    }
-
-    //Иницализация поля для вычисления победы
+      //Иницализация поля для вычисления победы
     private static void initializeFieldForWin() {
 
         fieldForWinCheck = new int[fieldSizeX][fieldSizeY];
@@ -269,7 +263,7 @@ public class Lesson4 {
 
         if (x < fieldSizeX && y < fieldSizeY) {
             if (x == -1 && y == -1) {
-                System.out.println("Вы сдались. Компьютер победил!!!");
+                System.out.println("Вы сдались. Компьютер победил!!!"); // возможность выйти раньше, если надоело или увлеклись с размерами поля :)
                 System.out.println("Нажмите \"Enter\" для выхода в главное меню");
                 scanner.nextLine();
                 scanner.nextLine();
@@ -308,15 +302,18 @@ public class Lesson4 {
         do {
             System.out.println("Ход игрока, ваш символ \"X\":");
             humanOneStep();
-            checkWin(lineForWin);
-            renderingField(fieldForWinCheck);
+            checkWinByHorizontalLine(DOT_HUMAN_1);
+            //checkWin(lineForWin);
+            //renderingField(fieldForWinCheck);
             renderingField(field);
-
+            System.out.println(checkWinByHorizontalLine(DOT_HUMAN_1));
 
             humanTwoStep();
-            checkWin(lineForWin);
-            renderingField(fieldForWinCheck);
+            //checkWin(lineForWin);
+            //renderingField(fieldForWinCheck);
+            checkWinByHorizontalLine(DOT_HUMAN_2);
             renderingField(field);
+            System.out.println(checkWinByHorizontalLine(DOT_COMPUTER));
         } while (true);
     }
 
@@ -326,13 +323,17 @@ public class Lesson4 {
             System.out.println("Ход игрока, ваш символ \"X\":");
             humanOneStep();
             renderingField(field);
-            renderingField(fieldForWinCheck);
+            checkWinByHorizontalLine(DOT_HUMAN_1);
+            System.out.println(checkWinByHorizontalLine(DOT_HUMAN_1));
+            //renderingField(fieldForWinCheck);
             //checkWin2();
-            checkWin(lineForWin);
+            //checkWin(lineForWin);
 
             computerStep();
-
-        } while (true);
+            checkWinByHorizontalLine(DOT_COMPUTER);
+            System.out.println(checkWinByHorizontalLine(DOT_COMPUTER));
+        } while (checkWinByHorizontalLine(DOT_HUMAN_1) == false && checkWinByHorizontalLine(DOT_COMPUTER) == false);
+        System.out.println("Игра завершена!!!");
     }
 
     public static void checkWin(int lineForWin) {
@@ -398,16 +399,49 @@ public class Lesson4 {
         }
     }
 
+    public static boolean checkWinByHorizontalLine(char charOfPlayer){
+        int winCheckCount = 0;
+        for (int i = 0; i < fieldSizeX; i++) {
+            for (int j = 0; j < fieldSizeY; j++) {
+                if(field[i][j] == charOfPlayer){
+                    winCheckCount ++;
+                    System.out.println("счетчик равен: " + winCheckCount);
+                    if (winCheckCount == lineForWin){
+                        System.out.println("Вы победили");
+                        return true;
+                    }
+                }else{
+                    winCheckCount = 0;
+                }
+            }
+        }
+        for (int i = 0; i < fieldSizeX; i++) {
+            for (int j = 0; j < fieldSizeY; j++) {
+                if(field[i][j] == charOfPlayer){
+                    winCheckCount ++;
+                    System.out.println("счетчик равен: " + winCheckCount);
+                    if (winCheckCount == lineForWin){
+                        System.out.println("Вы победили");
+                        return true;
+                    }
+                }else{
+                    winCheckCount = 0;
+                }
+            }
+        }
 
-    public static boolean cellIsEmpty(int x, int y) {
+        return false;
+    }
+
+/*    public static boolean cellIsEmpty(int x, int y) {
         if (fieldForWinCheck[x][y] == computerForWinCheck || fieldForWinCheck[x][y] == humanForWinCheck) {
             return false;
         } else {
             return true;
         }
-    }
+    }*/
 
-    public static void checkWin2() {
+/*    public static void checkWin2() {
         int winCount = 0;
         do {
             for (int i = 0; i < fieldSizeX; i++) {
@@ -421,5 +455,5 @@ public class Lesson4 {
             }
         } while (winCount != 3);
 
-    }
+    }*/
 }
