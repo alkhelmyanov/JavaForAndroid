@@ -1,5 +1,6 @@
 package gb.Khelmyanov_HW.Lesson4;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -23,6 +24,10 @@ public class Lesson4 {
     //static int[][] fieldForWinCheck;
     //static int humanForWinCheck = 7;
     //static int computerForWinCheck = 3;
+
+    static int compWinX;
+    static int compWinY;
+    static int computerAlert = 0;
 
     static char leftUpCorner = '\u2554'; // символ ╔
     static char leftDownCorner = '\u255A'; // символ ╚
@@ -274,15 +279,24 @@ public class Lesson4 {
 
     //Ход компьютера
     public static void computerStep() {
+        int x;
+        int y;
         System.out.println("Компьютер сходил \"O\"\n....... ");
-        int x = random.nextInt(fieldSizeX);
-        int y = random.nextInt(fieldSizeY);
-
+        if (computerAlert == 1){
+            x = compWinX;
+            y = compWinY;
+            System.out.println("computerAlert = " + computerAlert);
+            computerAlert = 0;
+        } else {
+            x = random.nextInt(fieldSizeX);
+            y = random.nextInt(fieldSizeY);
+        }
         // System.out.println("Компьютер ввел " + x + "  " + y);
         //System.out.println("Ячейки заняты " + cellIsEmpty(x, y));
-
-        if (cellIsEmpty(x, y)) {
+        System.out.println("computerAlert = " + computerAlert);
+        if (rangeOfGame(x,y) && cellIsEmpty(x, y)) {
             field[x][y] = DOT_COMPUTER;
+            System.out.println("\nКомпьютер сходил " + x + " " + y);
         } else {
             System.out.println("Компьютер ходит еще раз");
             computerStep();
@@ -338,12 +352,19 @@ public class Lesson4 {
 
     public static boolean checkWinByLine(char charOfPlayer) {
         int winCheckCount = 0;
-
+        System.out.println("Горизонталь = " + winCheckCount);
         // проверка горизонтали на победу
         for (int i = 0; i < fieldSizeX; i++) {
             for (int j = 0; j < fieldSizeY; j++) {
                 if (field[i][j] == charOfPlayer) {
                     winCheckCount++;
+                    // Если две фишки стоят подряд, то компьютер делает вывод, что следующую надо ставить ему
+                    if (winCheckCount == 2){
+                        computerAlert = 1;
+                        compWinX = i;
+                        compWinY = j + 1;
+                        System.out.println(compWinX + " " + compWinY);
+                    }
 
                     //System.out.println("счетчик равен: " + winCheckCount);
                     if (winCheckCount == lineForWin) {
@@ -355,12 +376,21 @@ public class Lesson4 {
                 }
             }
         }
-        // проверка вертикали на победу
 
+        // проверка вертикали на победу
+        winCheckCount = 0;
+        System.out.println("вертикаль = " + winCheckCount);
         for (int i = 0; i < fieldSizeX; i++) {
             for (int j = 0; j < fieldSizeY; j++) {
                 if (field[j][i] == charOfPlayer) {
                     winCheckCount++;
+                    // Если две фишки стоят подряд, то компьютер делает вывод, что следующую надо ставить ему
+                    if (winCheckCount == 2){
+                        computerAlert = 1;
+                        compWinX = i + 1;
+                        compWinY = j;
+                        System.out.println(compWinX + " " + compWinY);
+                    }
                     //System.out.println("счетчик равен: " + winCheckCount);
                     if (winCheckCount == lineForWin) {
                         System.out.println(winShout);
@@ -372,8 +402,8 @@ public class Lesson4 {
             }
         }
         // проверка нисходящей диагонали на победу
-
-
+        winCheckCount = 0;
+        System.out.println("нисходящей диагонали = " + winCheckCount);
         int kCountEnd = fieldSizeX - 1;
         int jCount = 0;
         int i = fieldSizeX - 1;
@@ -383,6 +413,13 @@ public class Lesson4 {
             for (int k = fieldSizeX; k > kCountEnd; k--) {
                 if (field[j][i] == charOfPlayer) {
                     winCheckCount++;
+                    // Если две фишки стоят подряд, то компьютер делает вывод, что следующую надо ставить ему
+                    if (winCheckCount == 2){
+                        computerAlert = 1;
+                        compWinX = i - 1;
+                        compWinY = j - 1;
+                        System.out.println(compWinX + " " + compWinY);
+                    }
                     //System.out.println("счетчик равен: " + winCheckCount);
                     if (winCheckCount == lineForWin) {
                         System.out.println(winShout);
@@ -410,6 +447,13 @@ public class Lesson4 {
             for (int k = kCountStart; k > 0; k--) {
                 if (field[j][i] == charOfPlayer) {
                     winCheckCount++;
+                    // Если две фишки стоят подряд, то компьютер делает вывод, что следующую надо ставить ему
+                    if (winCheckCount == 2){
+                        computerAlert = 1;
+                        compWinX = i - 1;
+                        compWinY = j - 1;
+                        System.out.println(compWinX + " " + compWinY);
+                    }
                     //System.out.println("счетчик равен: " + winCheckCount);
                     if (winCheckCount == lineForWin) {
                         System.out.println(winShout);
@@ -426,19 +470,26 @@ public class Lesson4 {
             jCount++;
             kCountStart--;
         }
-// проверка восходящей диагонали на победу
 
-
+        // проверка восходящей диагонали на победу
+        winCheckCount = 0;
         kCountEnd = 1;
         int iCount = 0;
         i = 0;
         j = 0;
-
+        System.out.println("восходящая диагонали = " + winCheckCount);
         for (int s = 0; s < fieldSizeX; s++) {
 
             for (int k = 0; k < kCountEnd; k++) {
                 if (field[j][i] == charOfPlayer) {
                     winCheckCount++;
+                    // Если две фишки стоят подряд, то компьютер делает вывод что следующую надо ставить ему
+                    if (winCheckCount == 2){
+                        computerAlert = 1;
+                        compWinX = i + 1;
+                        compWinY = j + 1;
+                        System.out.println(compWinX + " " + compWinY);
+                    }
                     // System.out.println("счетчик равен: " + winCheckCount);
                     if (winCheckCount == lineForWin) {
                         System.out.println(winShout);
@@ -465,6 +516,13 @@ public class Lesson4 {
             for (int k = fieldSizeX; k > kCountEnd; k--) {
                 if (field[j][i] == charOfPlayer) {
                     winCheckCount++;
+                    // Если две фишки стоят подряд, то компьютер делает вывод что следующую надо ставить ему
+                    if (winCheckCount == 2){
+                        computerAlert = 1;
+                        compWinX = i + 1;
+                        compWinY = j + 1;
+                        System.out.println(compWinX + " " + compWinY);
+                    }
                     //System.out.println("счетчик равен: " + winCheckCount);
                     if (winCheckCount == lineForWin) {
                         System.out.println(winShout);
@@ -488,22 +546,14 @@ public class Lesson4 {
     // Если занимает, то возвращает false, если свободна, то true.
 
     public static boolean cellIsEmpty(int x, int y) {
-        if (field[x][y] == DOT_HUMAN_1 || field[x][y] == DOT_HUMAN_2 || field[x][y] == DOT_COMPUTER) {
-            return false;
-        } else {
-            return true;
-        }
+        return field[x][y] != DOT_HUMAN_1 && field[x][y] != DOT_HUMAN_2 && field[x][y] != DOT_COMPUTER;
     }
 
     // Проверка не выходит ли ход за диапазон ячеек.
     // Если выходит за пределы то, возвращает false, если не выходит, то true.
 
     public static boolean rangeOfGame(int x, int y) {
-        if (x >= 0 && y >= 0 && x <= fieldSizeX && y <= fieldSizeY) {
-            return true;
-        } else {
-            return false;
-        }
+        return x >= 0 && y >= 0 && x <= fieldSizeX && y <= fieldSizeY;
     }
 
     /*private static void renderingField(int[][] field) {
