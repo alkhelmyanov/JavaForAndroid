@@ -119,10 +119,22 @@ public class Lesson4 {
                 System.out.println("Введите размер игрового поля (через пробел): ");
                 fieldSizeX = scanner.nextInt();
                 fieldSizeY = scanner.nextInt();
+                if (fieldSizeX > 9 || fieldSizeY > 9) { // больше идет искривление поля
+                    System.out.println("Не буду играть на кривом поле. Пусть будет 9 на 9");
+                    fieldSizeX = 9;
+                    fieldSizeY = 9;
+                }
                 break;
             case 2:
                 System.out.print("Введите длину победной линии: ");
                 lineForWin = scanner.nextInt();
+                if (lineForWin > fieldSizeX) {
+                    System.out.println("Не хватит игрового поля!!! Максимальная длинна " + fieldSizeX);
+                    lineForWin = fieldSizeX;
+                }
+                if (lineForWin > fieldSizeY)
+                    System.out.println("Не хватит игрового поля!!! Максимальная длинна " + fieldSizeY);
+                lineForWin = fieldSizeY;
                 break;
             case 0:
                 mainMenuTicTacToe();
@@ -207,76 +219,29 @@ public class Lesson4 {
             System.out.print(horizontalLine);
         }
         System.out.println(rightDownCorner);
-
     }
 
-    /*private static void renderingField(int[][] field) {
-
-        //Печатаем верхнюю часть игрового поля
-        System.out.println();
-        System.out.print(leftUpCorner);
-        for (int i = 0; i < fieldSizeX * 2 + 4; i++) {
-            System.out.print(horizontalLine);
-        }
-        System.out.println(rightUpCorner);
-
-        //Печатаем верхнюю шапку
-        System.out.print(verticalLine);
-        System.out.print("  ");
-        for (int i = 0; i < fieldSizeX * 2 + 1; i++) {
-            if (i % 2 == 0) {
-                System.out.print(" ");
-            } else {
-                System.out.print(i / 2 + 1);
-            }
-        }
-        System.out.print(" ");
-        System.out.println(verticalLine);
-
-        //Печать всех строк кроме последней
-        for (int i = 0; i < fieldSizeY; i++) {
-            System.out.print(verticalLine);
-            System.out.print(" ");
-            System.out.print(i + 1 + "|");
-
-            for (int j = 0; j < fieldSizeX; j++) {
-                System.out.print(field[i][j] + "|");
-            }
-            System.out.print(" ");
-            System.out.println(verticalLine);
-        }
-
-        //Печатаем нижнюю часть игрового поля
-        System.out.print(leftDownCorner);
-        for (int i = 0; i < fieldSizeX * 2 + 4; i++) {
-            System.out.print(horizontalLine);
-        }
-        System.out.println(rightDownCorner);
-
-    }*/
 
     // Ход первого игрока
     public static void humanOneStep() {
+        System.out.println("Ход игрока (" + DOT_HUMAN_1 + ")");
         System.out.print("Введи координаты \"x\" и \"y\" через пробел: ");
 
         int x = scanner.nextInt() - 1;
         int y = scanner.nextInt() - 1;
 
-        System.out.println("Ячейки заняты " + cellIsEmpty(x, y));
-        System.out.println("Выходит за диапазон " + rangeOfGame(x, y));
-
-        if (cellIsEmpty(x, y) && rangeOfGame(x, y)) {
-          /*  if (x == -2 && y == -2) {
-                System.out.println("Вы сдались. Оппонент победил!!!"); // возможность выйти раньше, если надоело или увлеклись с размерами поля :)
-                System.out.println("Нажмите \"Enter\" для выхода в главное меню");
-                scanner.nextLine();
-                scanner.nextLine();
-                mainMenuTicTacToe();
-            } else {*/
+        if (x == -2 && y == -2) {
+            System.out.println("Вы сдались. Оппонент победил!!!"); // возможность выйти раньше, если надоело или увлеклись с размерами поля :)
+            System.out.println("Нажмите \"Enter\" для выхода в главное меню");
+            scanner.nextLine();
+            scanner.nextLine();
+            mainMenuTicTacToe();
+        }
+        if (rangeOfGame(x, y) && cellIsEmpty(x, y)) {
             field[x][y] = DOT_HUMAN_1;
-            //}
         } else {
-            System.out.println("Вы ввели значение выходящие за пределы поля,\nили попытались захватить чужую ячейку. \nПовторите ввод");
+            System.out.println("\nВы ввели значение выходящие за пределы поля,\nили попытались захватить чужую ячейку. Попробуйте еще разок\n");
+            //}
             humanOneStep();
         }
 
@@ -285,30 +250,26 @@ public class Lesson4 {
     // Ход второго игрока
     public static void humanTwoStep() {
 
+        System.out.println("Ход второго игрока (" + DOT_HUMAN_2 + ")");
         System.out.print("Введи координаты \"x\" и \"y\" через пробел: ");
 
         int x = scanner.nextInt() - 1;
         int y = scanner.nextInt() - 1;
 
-        System.out.println(cellIsEmpty(x, y));
-        System.out.println(rangeOfGame(x, y));
-
-        if (cellIsEmpty(x, y) && rangeOfGame(x, y)) {
-           /* if (x == -2 && y == -2) { // По факту игрок вводит -1 -1
-                System.out.println("Вы сдались. Оппонент победил!!!"); // возможность выйти раньше, если надоело или увлеклись с размерами поля :)
-                System.out.println("Нажмите \"Enter\" для выхода в главное меню");
-                scanner.nextLine();
-                scanner.nextLine();
-                mainMenuTicTacToe();
-            } else {*/
+        if (x == -2 && y == -2) {
+            System.out.println("Вы сдались. Оппонент победил!!!"); // возможность выйти раньше, если надоело или увлеклись с размерами поля :)
+            System.out.println("Нажмите \"Enter\" для выхода в главное меню");
+            scanner.nextLine();
+            scanner.nextLine();
+            mainMenuTicTacToe();
+        }
+        if (rangeOfGame(x, y) && cellIsEmpty(x, y)) {
             field[x][y] = DOT_HUMAN_2;
-            //fieldForWinCheck[x][y] = humanForWinCheck;
-            //}
         } else {
-            System.out.println("Вы ввели значение выходящие за пределы поля,\nили попытались захватить чужую ячейку. \nПовторите ввод");
+            System.out.println("\nВы ввели значение выходящие за пределы поля,\nили попытались захватить чужую ячейку. Попробуйте еще разок\n");
+            //}
             humanTwoStep();
         }
-
     }
 
     //Ход компьютера
@@ -317,17 +278,15 @@ public class Lesson4 {
         int x = random.nextInt(fieldSizeX);
         int y = random.nextInt(fieldSizeY);
 
-        System.out.println("Компьютер ввел " + x +"  "+ y);
-        System.out.println("Ячейки заняты " + cellIsEmpty(x, y));
-        System.out.println("Выходит за диапазон " + rangeOfGame(x, y));
+        // System.out.println("Компьютер ввел " + x + "  " + y);
+        //System.out.println("Ячейки заняты " + cellIsEmpty(x, y));
 
-        if (cellIsEmpty(x, y) && rangeOfGame(x , y)) {
+        if (cellIsEmpty(x, y)) {
             field[x][y] = DOT_COMPUTER;
         } else {
             System.out.println("Компьютер ходит еще раз");
             computerStep();
         }
-        //fieldForWinCheck[x][y] = computerForWinCheck;
     }
 
     //Игра Человек против Человека
@@ -335,19 +294,18 @@ public class Lesson4 {
         initializeField();
         renderingField(field);
         do {
-            System.out.println("Ход игрока, ваш символ " + "\"" + DOT_HUMAN_1 + "\"" + " (сдаться -1 -1) ");
+
             humanOneStep();
             checkWinByLine(DOT_HUMAN_1);
             renderingField(field);
-            //System.out.println(checkWinByLine(DOT_HUMAN_1));
 
-            System.out.println("Ход 2го игрока, ваш символ " + "\"" + DOT_HUMAN_2 + "\"" + " (сдаться -1 -1) ");
             humanTwoStep();
             checkWinByLine(DOT_HUMAN_2);
             renderingField(field);
-            //System.out.println(checkWinByLine(DOT_HUMAN_2));
+
 
         } while (!checkWinByLine(DOT_HUMAN_1) && !checkWinByLine(DOT_HUMAN_2));
+
         System.out.println("Игра завершена!!!");
         System.out.println("Нажмите \"Enter\" для выхода в главное меню");
         scanner.nextLine();
@@ -361,18 +319,15 @@ public class Lesson4 {
         initializeField();
         renderingField(field);
         do {
-            System.out.println("Ход игрока, ваш символ " + "\"" + DOT_HUMAN_1 + "\"" + ":");
             humanOneStep();
             renderingField(field);
             checkWinByLine(DOT_HUMAN_1);
-            //System.out.println(checkWinByLine(DOT_HUMAN_1));
-
 
             computerStep();
             checkWinByLine(DOT_COMPUTER);
             renderingField(field);
             //System.out.println(checkWinByLine(DOT_COMPUTER));
-        } while (checkWinByLine(DOT_HUMAN_1) == false && checkWinByLine(DOT_COMPUTER) == false);
+        } while (!checkWinByLine(DOT_HUMAN_1) && !checkWinByLine(DOT_COMPUTER));
 
         System.out.println("Игра завершена!!!");
         System.out.println("Нажмите \"Enter\" для выхода в главное меню");
@@ -381,20 +336,15 @@ public class Lesson4 {
         mainMenuTicTacToe();
     }
 
-
-    // Метод проверяет не выходит ли значение за пределы массива
-    private static boolean isCellValid(int x, int y) {
-        return x >= 0 && x < fieldSizeX && y >= 0 && y < fieldSizeY;
-    }
-
-
     public static boolean checkWinByLine(char charOfPlayer) {
         int winCheckCount = 0;
+
         // проверка горизонтали на победу
         for (int i = 0; i < fieldSizeX; i++) {
             for (int j = 0; j < fieldSizeY; j++) {
                 if (field[i][j] == charOfPlayer) {
                     winCheckCount++;
+
                     //System.out.println("счетчик равен: " + winCheckCount);
                     if (winCheckCount == lineForWin) {
                         System.out.println(winShout);
@@ -406,7 +356,7 @@ public class Lesson4 {
             }
         }
         // проверка вертикали на победу
-        winCheckCount = 0;
+
         for (int i = 0; i < fieldSizeX; i++) {
             for (int j = 0; j < fieldSizeY; j++) {
                 if (field[j][i] == charOfPlayer) {
@@ -422,7 +372,7 @@ public class Lesson4 {
             }
         }
         // проверка нисходящей диагонали на победу
-        winCheckCount = 0;
+
 
         int kCountEnd = fieldSizeX - 1;
         int jCount = 0;
@@ -477,7 +427,7 @@ public class Lesson4 {
             kCountStart--;
         }
 // проверка восходящей диагонали на победу
-        winCheckCount = 0;
+
 
         kCountEnd = 1;
         int iCount = 0;
@@ -534,6 +484,73 @@ public class Lesson4 {
         return false;
     }
 
+    // Проверка не занимает ли новая фишка заполненную клетку.
+    // Если занимает, то возвращает false, если свободна, то true.
+
+    public static boolean cellIsEmpty(int x, int y) {
+        if (field[x][y] == DOT_HUMAN_1 || field[x][y] == DOT_HUMAN_2 || field[x][y] == DOT_COMPUTER) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    // Проверка не выходит ли ход за диапазон ячеек.
+    // Если выходит за пределы то, возвращает false, если не выходит, то true.
+
+    public static boolean rangeOfGame(int x, int y) {
+        if (x >= 0 && y >= 0 && x <= fieldSizeX && y <= fieldSizeY) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*private static void renderingField(int[][] field) {
+
+        //Печатаем верхнюю часть игрового поля
+        System.out.println();
+        System.out.print(leftUpCorner);
+        for (int i = 0; i < fieldSizeX * 2 + 4; i++) {
+            System.out.print(horizontalLine);
+        }
+        System.out.println(rightUpCorner);
+
+        //Печатаем верхнюю шапку
+        System.out.print(verticalLine);
+        System.out.print("  ");
+        for (int i = 0; i < fieldSizeX * 2 + 1; i++) {
+            if (i % 2 == 0) {
+                System.out.print(" ");
+            } else {
+                System.out.print(i / 2 + 1);
+            }
+        }
+        System.out.print(" ");
+        System.out.println(verticalLine);
+
+        //Печать всех строк кроме последней
+        for (int i = 0; i < fieldSizeY; i++) {
+            System.out.print(verticalLine);
+            System.out.print(" ");
+            System.out.print(i + 1 + "|");
+
+            for (int j = 0; j < fieldSizeX; j++) {
+                System.out.print(field[i][j] + "|");
+            }
+            System.out.print(" ");
+            System.out.println(verticalLine);
+        }
+
+        //Печатаем нижнюю часть игрового поля
+        System.out.print(leftDownCorner);
+        for (int i = 0; i < fieldSizeX * 2 + 4; i++) {
+            System.out.print(horizontalLine);
+        }
+        System.out.println(rightDownCorner);
+
+    }*/
+
      /* public static void checkWin(int lineForWin) {
 
         System.out.println(Arrays.deepToString(fieldForWinCheck));
@@ -556,23 +573,7 @@ public class Lesson4 {
     }*/
 
 
-    // Проверка не занимает ли новая фишка заполненную клетку
-    public static boolean cellIsEmpty(int x, int y) {
-        if (field[x][y] == DOT_HUMAN_1 || field[x][y] == DOT_HUMAN_2 || field[x][y] == DOT_COMPUTER) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 
-    // Проверка не выходит ли ход за диапазон ячеек
-    public static boolean rangeOfGame(int x, int y) {
-        if (x >= 0 && y >= 0 && x <= fieldSizeX + 1 && y <= fieldSizeY + 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
 /*    public static void checkWin2() {
         int winCount = 0;
