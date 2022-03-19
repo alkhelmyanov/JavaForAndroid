@@ -5,7 +5,7 @@ public class Cat extends Animal {
     public int catCounter = 0;
 
     public Cat(String name) {
-        super.name = name;
+        super(name);
 
         catCounter++;
     }
@@ -14,19 +14,12 @@ public class Cat extends Animal {
         System.out.println("Счетчик котов " + catCounter);
     }
 
-    public void animalInfo() {
-        System.out.println("Кот с именем " + name);
-        super.animalInfo();
-
-    }
-
     public void animalRun(int distance) {
         if (distance <= 200) {
-            System.out.printf("Кот с именем %s пробежал %dм\n", super.name, distance);
+            System.out.printf("Кот с именем %s пробежал %dм\n", name, distance);
         } else {
             System.out.println("Кот больше 200 м пробежать не может");
         }
-
     }
 
     public void animalSwim(int distance) {

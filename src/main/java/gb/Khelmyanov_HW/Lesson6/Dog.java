@@ -1,10 +1,10 @@
 package gb.Khelmyanov_HW.Lesson6;
 
 public class Dog extends Animal {
-   static int dogCounter = 0;
+    public int dogCounter = 0;
 
     public Dog(String name) {
-        super.name = name;
+        super(name);
 
         dogCounter++;
     }
@@ -13,14 +13,9 @@ public class Dog extends Animal {
         System.out.println("Счетчик собак " + dogCounter);
     }
 
-    @Override
-    public void animalInfo() {
-        System.out.println("Собака с именем " + name);
-    }
-
     public void animalRun(int distance) {
         if (distance <= 500) {
-            System.out.printf("Собака по имени %s пробежала %dм\n", name, distance);
+            System.out.printf("Собака по имени %s пробежала %dм\n", super.name, distance);
         } else {
             System.out.println("Собака больше 500м пробежать не может");
         }
