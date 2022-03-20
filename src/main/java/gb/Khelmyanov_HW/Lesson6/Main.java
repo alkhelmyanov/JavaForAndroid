@@ -21,8 +21,9 @@ public class Main extends Animal {
         cat02.animalSwim(10);
 
         dog01.dogCounter();
-        dog01.animalRun(500);
+        dog01.animalRun(501);
         dog01.animalSwim(40);
+        dog03.animalSwim(8);
 
         dog04.animalCounter();
 

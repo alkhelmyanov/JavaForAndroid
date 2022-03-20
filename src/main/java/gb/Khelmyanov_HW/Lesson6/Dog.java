@@ -2,7 +2,7 @@ package gb.Khelmyanov_HW.Lesson6;
 
 public class Dog extends Animal {
 
-    public int dogCounter = 0;
+    public static int dogCounter = 0;
 
     public Dog(String name) {
         super(name);

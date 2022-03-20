@@ -2,7 +2,7 @@ package gb.Khelmyanov_HW.Lesson6;
 
 public class Cat extends Animal {
 
-    public int catCounter = 0;
+    public static int catCounter = 0;
 
     public Cat(String name) {
         super(name);

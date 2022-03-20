@@ -4,14 +4,10 @@ public class Animal {
 
     protected String name;
     protected int distance;
-    private int animalCounter = 0;
+    private static int animalCounter = 0;
 
     public int getAnimalCounter() {
         return animalCounter;
-    }
-
-    public void setAnimalCounter(int animalCounter) {
-        this.animalCounter = animalCounter;
     }
 
     public Animal() {
@@ -27,7 +23,8 @@ public class Animal {
     public void animalAction(int distance, Animal animal) {
         if (animal instanceof Dog) {
             ((Dog) animal).animalRun(200);
-        } if (animal instanceof Cat){
+        }
+        if (animal instanceof Cat) {
             ((Cat) animal).animalRun(100);
         }
     }
@@ -43,6 +40,5 @@ public class Animal {
     public void animalSwim(int distance) {
         System.out.println("Животное проплыло " + distance + "м");
     }
-
 
 }
