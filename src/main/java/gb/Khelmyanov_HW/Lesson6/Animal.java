@@ -5,10 +5,7 @@ public class Animal {
     protected String name;
     private int distance;
     private int counter;
-
-    public int getCounter() {
-        return counter;
-    }
+    protected int animalCounter = 0;
 
     public Animal(){
 
@@ -17,7 +14,7 @@ public class Animal {
     public Animal(String name) {
         this.name = name;
 
-        counter++;
+        animalCounter++;
     }
 
     public void animalRun(int distance, Animal animal) {
@@ -31,17 +28,19 @@ public class Animal {
     public static void main(String[] args) {
 
         Cat cat01 = new Cat("Барсик");
-        Cat cat02 = new Cat("Персик");
-        Cat cat03 = new Cat("Чертик");
+        //Cat cat02 = new Cat("Персик");
+        //Cat cat03 = new Cat("Чертик");
 
         Dog dog01 = new Dog("Бобик");
-        Dog dog02 = new Dog("Тузик");
+        //Dog dog02 = new Dog("Тузик");
 
         cat01.animalRun(200);
-        cat02.animalSwim(100);
+        cat01.animalSwim(15);
 
         dog01.animalRun(499);
         dog01.animalSwim(300);
+
+        catCounter();
 
     }
 }

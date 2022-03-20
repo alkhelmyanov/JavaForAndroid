@@ -15,7 +15,7 @@ public class Dog extends Animal {
 
     public void animalRun(int distance) {
         if (distance <= 500) {
-            System.out.printf("Собака по имени %s пробежала %dм\n", super.name, distance);
+            System.out.printf("Собака по имени %s пробежала %dм\n",name, distance);
         } else {
             System.out.println("Собака больше 500м пробежать не может");
         }
@@ -23,7 +23,7 @@ public class Dog extends Animal {
 
     public void animalSwim(int distance) {
         if (distance <= 10) {
-            System.out.printf("Собака по имени %s проплыла %dм\n", name, distance);
+            System.out.printf("Собака по имени %s проплыла %dм\n",name, distance);
         } else {
             System.out.println("Тренируйте собаку больше, она пока не может проплыть больше 10м");
         }
