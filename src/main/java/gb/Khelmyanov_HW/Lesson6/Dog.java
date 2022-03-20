@@ -1,6 +1,7 @@
 package gb.Khelmyanov_HW.Lesson6;
 
 public class Dog extends Animal {
+
     public int dogCounter = 0;
 
     public Dog(String name) {
@@ -10,7 +11,7 @@ public class Dog extends Animal {
     }
 
     public void dogCounter() {
-        System.out.println("Счетчик собак " + dogCounter);
+        System.out.println("\nКол-во созданных собак " + dogCounter);
     }
 
     public void animalRun(int distance) {
