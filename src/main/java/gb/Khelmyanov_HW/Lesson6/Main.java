@@ -14,18 +14,18 @@ public class Main extends Animal {
         Animal cat04 = new Cat("Макс");
         Animal dog04 = new Dog("Макс2");
 
-        cat01.animalCounter();
+        Cat.animalCounter();
         cat01.animalRun(100);
         cat01.animalSwim(200);
         cat02.animalRun(50);
         cat02.animalSwim(10);
 
-        dog01.dogCounter();
+        Dog.dogCounter();
         dog01.animalRun(501);
         dog01.animalSwim(40);
         dog03.animalSwim(8);
 
-        dog04.animalCounter();
+        Animal.animalCounter();
 
     }
 }

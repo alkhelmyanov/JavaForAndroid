@@ -10,7 +10,7 @@ public class Dog extends Animal {
         dogCounter++;
     }
 
-    public void dogCounter() {
+    public static void dogCounter() {
         System.out.println("\nКол-во созданных собак " + dogCounter);
     }
 

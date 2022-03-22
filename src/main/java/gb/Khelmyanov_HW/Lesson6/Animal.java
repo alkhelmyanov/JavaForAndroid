@@ -6,7 +6,7 @@ public class Animal {
     protected int distance;
     private static int animalCounter = 0;
 
-    public int getAnimalCounter() {
+    public static int getAnimalCounter() {
         return animalCounter;
     }
 
@@ -29,7 +29,7 @@ public class Animal {
         }
     }
 
-    public void animalCounter() {
+    public static void  animalCounter() {
         System.out.println("\nВсего животных " + getAnimalCounter());
     }
 
