@@ -1,16 +1,23 @@
 package gb.Khelmyanov_HW.Lesson7;
 
+import java.util.Random;
+
 public class Cat {
 
     private String name;
     public int appetite;
     protected boolean satiety;
 
-    public Cat(String name, int appetite) {
+    Random random = new Random();
+
+    public Cat(String name) {
+
+        appetite = random.nextInt(30);
         this.name = name;
-        this.appetite = appetite;
+
         satiety = false;
-        System.out.println("Это кот \"" + name + "\". Сытость кота: " + satiety);
+        System.out.println("Это кот \"" + name + "\". Емкость живота " +appetite+ "гр. Сытость кота: " + satiety);
+
     }
 
     public void eat(Plate plate) {
