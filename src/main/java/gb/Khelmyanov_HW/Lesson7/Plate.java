@@ -1,15 +1,11 @@
 package gb.Khelmyanov_HW.Lesson7;
 
-import java.util.Random;
-
 public class Plate {
 
     private int food;
     private String featureOfPlate; // особенность миски
     private final int capacityOfPlate;
     boolean satiety;
-
-    Random random = new Random();
 
     public Plate(String featureOfPlate, int capacityOfPlate, int food) {
         this.food = food;
