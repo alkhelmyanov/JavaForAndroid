@@ -33,6 +33,5 @@ public class MainClass {
         cat02.eat(plate01);
         System.out.println();
         cat01.eat(plate01);*/
-
     }
 }

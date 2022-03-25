@@ -17,7 +17,6 @@ public class Cat {
 
         satiety = false;
         System.out.println("Это кот \"" + name + "\". Емкость живота " +appetite+ "гр. Сытость кота: " + satiety);
-
     }
 
     public void eat(Plate plate) {

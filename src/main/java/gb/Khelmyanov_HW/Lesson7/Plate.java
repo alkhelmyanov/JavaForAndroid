@@ -15,7 +15,6 @@ public class Plate {
         this.food = food;
         this.featureOfPlate = featureOfPlate;
         this.capacityOfPlate = capacityOfPlate;
-
     }
 
     public void addFoodToPlate(int quantity) {
@@ -39,7 +38,6 @@ public class Plate {
             return true;
         } else {
             System.out.println("В тарелке \"" + featureOfPlate + "\" не хватает еды (в тарелке " + food + " гр.). Похоже кот " + name + " останется голодным.");
-            addFoodToPlate(random.nextInt(40));
             return false;
         }
     }
