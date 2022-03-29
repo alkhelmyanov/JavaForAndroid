@@ -3,19 +3,16 @@ package gb.Khelmyanov_HW.Lesson8;
 public class Action {
 String typeOfRunner;
 
-    protected void methodRun(String typeOfRunner, String name){
-        if (RunningTrack.getDistance() > 500) {
-            System.out.println(typeOfRunner + " по имени \"" + name + "\" не может пробежать больше 500м");
-        } else {
-            System.out.println(typeOfRunner + " то имени \"" + name + "\" пробежал " + RunningTrack.getDistance()+"м");
-        }
-    }
-    public void methodJump(String typeOfRunner, String name) {
-        if (Wall.getHeight() > 15) {
-            System.out.println(typeOfRunner + " не может перелезть препятствие выше 15м, боится убиться!!!");
-        } else {
-            System.out.println(typeOfRunner + " перелез стену " + Wall.getHeight()+ "м");
-        }
-    }
+
+
 
 }
+
+// Разбить полосу препятствий на 5 частей. Берем общую длину, рандомно делим на две части, первую часть оставляем как отрезок пути, вторую прибавляем к оставшейся длине, и так 5 раз.
+// Или длинна препятствия около 10м +- 3м, и столько же может прыгун 10 +-3м, то же самое с забегом
+//добавляем стенки рандомной высоты.
+// Все это добавляется в цикл, и по индексу расставляется вся полоса препятствий.
+
+//Все объекты по очереди бегут по полосе препятствий и по индексу проверяется препятствия, препятствие сверяется с возможностью объекта, если не смог то записывается индекс препятствия и выдается false, если дошел до конца то true
+
+//Отсортировать всех участников по количеству пройденных препятствий

@@ -1,6 +1,6 @@
 package gb.Khelmyanov_HW.Lesson8;
 
-public class Robot extends Action implements Runner {
+public class Robot implements Runner {
     String name;
     String typeOfRunner = "Робот";
 
@@ -8,13 +8,14 @@ public class Robot extends Action implements Runner {
         this.name = name;
     }
 
-    @Override
-    public void run() {
-        methodRun(typeOfRunner, name);
+    public int run() {
+        return RunningTrack.calculateEndurance(typeOfRunner, name);
+
+        //RunningTrack.methodRun(typeOfRunner, name, runnerDistance);
     }
 
     @Override
-    public void jump() {
-        methodJump(typeOfRunner, name);
+    public int jump() {
+        return Wall.calculateEndurance(typeOfRunner, name);
     }
 }

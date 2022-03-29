@@ -2,8 +2,10 @@ package gb.Khelmyanov_HW.Lesson8;
 
 public interface Runner {
 
-    void run();
+    // Метод для преодоления расстояния
+    int run();
 
-    void jump();
+    // Метод для преодоления стены
+    int jump();
 
 }
