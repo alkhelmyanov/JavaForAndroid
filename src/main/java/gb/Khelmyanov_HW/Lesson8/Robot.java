@@ -8,6 +8,11 @@ public class Robot implements Runner {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "\"" + typeOfRunner + "\" по имени " + name + " ";
+    }
+
     public int run() {
         return RunningTrack.calculateEndurance(typeOfRunner, name);
 

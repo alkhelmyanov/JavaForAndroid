@@ -41,9 +41,16 @@ public class RunningTrack implements Obstruction {
     // Метод, который придумывает выносливость игрока на забег. В зависимости от типа им добавляется одна сверхвозможность.
     public static int calculateEndurance(String typeOfRunners, String name) {
         Random random = new Random();
-        setRunnerDistance(random.nextInt(3) + 100);
-        System.out.printf("Выносливость бегуна \"%s\" по имени %s в беге равна %d\n", typeOfRunners, name, getRunnerDistance());
-        return  getRunnerDistance();
+        int superPower = random.nextInt(5);
+        int randomNumber = random.nextInt(5);
+        if (superPower == randomNumber) {
+            setRunnerDistance(200);
+            System.out.println("Участник получили супер силу, выносливость выросла до 200, прыжок, и он уже у следующего препятствия!!!");
+        } else {
+            setRunnerDistance(random.nextInt(5) + 100);
+            System.out.printf("Выносливость бегуна \"%s\" по имени %s в беге равна %d\n", typeOfRunners, name, getRunnerDistance());
+        }
+        return getRunnerDistance();
     }
 
     // Просто метод который проверял может ли пройти препятствие бегун

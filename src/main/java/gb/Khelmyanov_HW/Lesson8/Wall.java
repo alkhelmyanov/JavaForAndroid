@@ -34,10 +34,17 @@ public class Wall implements Obstruction {
     }
 
     // Метод, который придумывает выносливость игрока на прыжок
-    public static int calculateEndurance(String typeOfRunners, String name){
+    public static int calculateEndurance(String typeOfRunners, String name) {
         Random random = new Random();
-        setRunnerHeight(random.nextInt(3) + 10);
-        System.out.printf("Выносливость бегуна \"%s\" по имени %s в прыжке равна %d\n", typeOfRunners, name, getHeight());
+        int superPower = random.nextInt(5);
+        int randomNumber = random.nextInt(5);
+        if (superPower == randomNumber) {
+            setRunnerHeight(200);
+            System.out.println("Участник получили супер силу, выносливость выросла до 200 и он разорвал эту стену!!! Вы только посмотрите какая в стене дыра!!!");
+        } else {
+            setRunnerHeight(random.nextInt(4) + 10);
+            System.out.printf("Выносливость бегуна \"%s\" по имени %s в прыжке равна %d\n", typeOfRunners, name, getHeight());
+        }
         return getHeight();
     }
 

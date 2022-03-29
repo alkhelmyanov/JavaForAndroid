@@ -7,14 +7,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         int numberOfObstacles = 6; // количество препятствий которые должны пройти бегуны
 
         //Runner cat = new Cat("Барсик");
         //Runner robot = new Robot("Робинович");
-       // Runner human = new Human("Тимофей");
+        // Runner human = new Human("Тимофей");
 
-        Runner[] runners = {new Cat("Барсик"), new Robot("Робинович"), new Human("Тимофей")};
+        Runner[] runners = {new Cat("Барсик"), new Robot("Робинович"), new Human("Тимофей"), new Human("Василий")};
 
         Obstruction runningTrack = new RunningTrack(); // создал объекты чтобы запустить нестатический метод.
         Obstruction wall = new Wall();
@@ -23,6 +22,7 @@ public class Main {
         //Runner [] runners = {cat, robot, human};
 
         int[] obstructionArray = new int[numberOfObstacles];
+        //int[] score = new int[runners.length];
 
 
         // массив с полосой препятствий
@@ -46,38 +46,46 @@ public class Main {
 
         // Забег
         System.out.println("Мы ведем текстовую трансляцию соревнований");
-        System.out.println("В соревновании принимают участие:" + Arrays.toString(runners));
+        System.out.println("Сегодня нашим участникам предстоит преодолеть полосу из 2х препятствий идущих друг за другом: бег, стена, бег,... !!!");
+        System.out.println("\nВ соревновании принимают участие: " + Arrays.toString(runners));
         for (Runner runner : runners) {
-            System.out.println("Игрок " + runner + "готов к полосе препятствий: ");
-            System.out.println("3\n2\n1\nСтарт!!!\n ");
+
+            System.out.println("На старт выходит участник " + runner);
+            System.out.println("3...\n2..\n1.\nСтарт!!! ");
             for (int i = 0; i < numberOfObstacles; i++) {
                 if (i % 2 == 0) {
 
                     // Испытание №1. Забег по дорожке
-                    System.out.println("Длинна дорожки равна " + obstructionArray[i] + "м");
+                    System.out.println("Препятствие №" + (i + 1) + ". Длинна дорожки равна " + obstructionArray[i] + "м");
                     if (runner.run() >= obstructionArray[i]) {
-                        System.out.println("Участок пути преодолен");
+                        System.out.println("Участок пути преодолен.\n");
                     } else {
-                        System.out.println("Участник выдохся и не смог доползти до конца дорожки");
-                        System.out.println("количество пройденных препятствий: " + i );
+                        System.out.println("\nК сожалению участник " + runner + " выдохся и не смог доползти до конца дорожки :(");
+                        System.out.println("Количество пройденных препятствий: " + i);
                         break;
                     }
                 } else {
 
                     // Испытание №2. Прыжок через стену
-                    System.out.println("Высота стены " + obstructionArray[i]);
+                    System.out.println("Препятствие №" + (i + 1) + ". Высота стены " + obstructionArray[i]);
                     if (runner.jump() >= obstructionArray[i]) {
-                        System.out.println("Участок пути преодолен");
+                        System.out.println("Участок пути преодолен\n");
                     } else {
-                        System.out.println("Участник не смог перелезть стену");
+                        System.out.println("К сожалению участник " + runner + "частник не смог перелезть стену");
                         System.out.println("количество пройденных препятствий: " + i);
                         break;
                     }
+
+                }
+                if (i == numberOfObstacles - 1) {
+                    System.out.println("Поздравляем!!! " + runner + "преодолел все препятствия!!!");
                 }
                 // Продолжение после окончания
 
             }
+            System.out.println();
 
         }
+
     }
 }
