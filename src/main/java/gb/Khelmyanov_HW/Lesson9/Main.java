@@ -3,22 +3,16 @@ package gb.Khelmyanov_HW.Lesson9;
 import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) throws MyArraySizeException, MyArrayDataException {
+    public static void main(String[] args) {
 
-        String[][] array = {{"1", "Д", "3", "4"}, {"1", "2", "3", "4"}, {"5", "6", "7", "8"}, {"9", "10", "11", "12"}, {"13", "14", "15", "16"}};
+        String[][] array = {{"1", "2", "3", "4"}, {"1", "Д", "3", "4"}, {"5", "6", "F", "8"}, {"9", "10", "11", "12"}, {"13", "14", "15", "16"}};
+
+
         try {
             MySumArray.sumArray(array);
-
-            // Поймана ошибка. Обработана выдав сообщение, и обрезав массив до нужных значений.
-        } catch (MyArraySizeException e) {
-            System.out.println(e.getMessage() + ". Массив сокращен до размера 4 на 4");
-            array = Arrays.copyOfRange(array, 1, 5);
-            MySumArray.sumArray(array);
-
-        } //catch (MyArrayDataException e) {
-        //  e.printStackTrace();
-//}
-
+        } catch (MyArrayDataException | MyArraySizeException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -26,29 +20,58 @@ public class Main {
 
 class MySumArray {
     public static void sumArray(String[][] array) throws MyArraySizeException, MyArrayDataException {
+        int tempForSum = 0;
 
         int outArray = array.length;
         int inArray = array[0].length;
         System.out.println("Массив: " + outArray + " " + inArray);
 
-        if (array.length <= 4 && array[0].length <= 4) {
+        try {
             for (int i = 0; i < array.length; i++) {
                 for (int j = 0; j < array[i].length; j++) {
                     System.out.print(array[i][j] + " ");
                 }
                 System.out.println();
             }
-        } else {
-            throw new MyArraySizeException("Величина массива не может быть больше 4х элементов");
+
+            // Поймана ошибка. Выдано исключение.
+            if (array.length > 4 || array[0].length > 4) {
+                throw new MyArraySizeException("Исключение MyArraySizeException. Массив не может быть размером больше чем 4 на 4");
+            }
+
+            // Не предоставляем возможность другому человеку исправить, обрезаем массив сами.
+        } catch (MyArraySizeException e) {
+            System.out.println(e.getMessage() + ". \nВаш массив обрезан с конца до размера 4 на 4\n");
+            array = Arrays.copyOfRange(array, 0, 4);
+            MySumArray.sumArray(array);
         }
 
-        /*int summator = 0;
+
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[i].length; j++) {
-                summator += array[i][j];
+                try {
+                    System.out.println("i = " + i + " j = " + j);
+
+                    int temp = Integer.parseInt(array[i][j]);
+
+                    throw new MyArrayDataException("Исключение MyArrayDataException");
+                } catch (MyArrayDataException e) {
+                    e.getMessage();
+
+                }
             }
-            System.out.println();
-        }*/
+        }
+        System.out.println("Выполнение программы завершено");
+
+        //  System.out.println("Сумма элементов массива равна " + tempForSum);
+
+            /*int summator = 0;
+            for (int i = 0; i < array.length; i++) {
+                for (int j = 0; j < array[i].length; j++) {
+                    summator += array[i][j];
+                }
+                System.out.println();
+            }*/
     }
 
 }
