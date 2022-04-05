@@ -10,7 +10,7 @@ public class Main {
 
         try {
             MySumArray.sumArray(arrayStr);
-        } catch (MyArrayDataException | MyArraySizeException e) {
+        } catch (MyArrayDataException| MyArraySizeException e) {
             //  MyArrayDataException myArrayDataException = new MyArrayDataException("Исключение MyArrayDataException", i, j, arrayStr[i][j]);
 
             // System.out.println("значение х из моего конструктора " + myArrayDataException.getX());
@@ -65,16 +65,13 @@ class MySumArray {
                 try {
                     // System.out.println("i = " + i + " j = " + j);
                     int strForInt = Integer.parseInt(arrayStr[i][j]);
-                    //arrayInt[i][j] = strForInt;
-                    // tempForSum += strForInt;
+                    arrayInt[i][j] = strForInt;
+                    tempForSum += strForInt;
 
                 } catch (NumberFormatException e) {
                     //System.out.println(e.getMessage() + " Исключение");
-
-                    throw new MyArrayDataException("Исключение MyArrayDataException", i, j, arrayStr[i][j]);
-
+                    throw new MyArrayDataException( "Исключение MyArrayDataException", i, j, arrayStr[i][j]);
                 }
-
             }
         }
         System.out.println("Обновленный массив " + Arrays.deepToString(arrayInt));
