@@ -3,32 +3,29 @@ package gb.Khelmyanov_HW.Lesson9;
 import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MyArrayDataException {
 
         String[][] arrayStr = {{"1", "2", "3", "4"}, {"1", "Д", "3", "4"}, {"5", "6", "F", "8"}, {"9", "10", "11", "12"}, {"13", "14", "15", "16"}};
 
 
-        try {
-            MySumArray.sumArray(arrayStr);
-        } catch (MyArrayDataException| MyArraySizeException e) {
-            //  MyArrayDataException myArrayDataException = new MyArrayDataException("Исключение MyArrayDataException", i, j, arrayStr[i][j]);
-
-            // System.out.println("значение х из моего конструктора " + myArrayDataException.getX());
-            // int i = MyArrayDataException.i;
-            // int j = MyArrayDataException.j;
-            // i = Integer.parseInt(arrayStr[i][j-1]);
-            // j = Integer.parseInt(arrayStr[i][j+1]);
-            // arrayStr[i][j] = i + j / 2;
-
-        }
-
+        do {
+            MySumArray.checkStatus = 0;
+            try {
+                MySumArray.sumArray(arrayStr);
+            } catch (MyArrayDataException e) {
+                int i = Integer.parseInt(arrayStr[e.getX()][e.getY() - 1]);
+                int j = Integer.parseInt(arrayStr[e.getX()][e.getY() + 1]);
+                arrayStr[e.getX()][e.getY()] = String.valueOf(i + j / 2);
+            }
+        } while (MySumArray.checkStatus == 1);
     }
-
 }
 
 class MySumArray {
 
-    public static void sumArray(String[][] arrayStr) throws MyArraySizeException, MyArrayDataException {
+    static int checkStatus = 0;
+
+    public static void sumArray(String[][] arrayStr) throws MyArrayDataException {
 
         int tempForSum = 0;
 
@@ -36,7 +33,7 @@ class MySumArray {
         int inArray = arrayStr[0].length;
 
         System.out.println("Массив: " + outArray + " " + inArray);
-
+        MySumArray mySumArray = new MySumArray();
         int[][] arrayInt = new int[4][4];
 
         try {
@@ -60,6 +57,7 @@ class MySumArray {
         }
 
         // Выбрасываем исключение и просим пользователя самого изменить массив
+
         for (int i = 0; i < arrayStr.length; i++) {
             for (int j = 0; j < arrayStr[i].length; j++) {
                 try {
@@ -70,14 +68,15 @@ class MySumArray {
 
                 } catch (NumberFormatException e) {
                     //System.out.println(e.getMessage() + " Исключение");
-                    throw new MyArrayDataException( "Исключение MyArrayDataException", i, j, arrayStr[i][j]);
+
+                    checkStatus = 1;
+                    throw new MyArrayDataException("Исключение MyArrayDataException", i, j, arrayStr[i][j]);
                 }
             }
         }
+
         System.out.println("Обновленный массив " + Arrays.deepToString(arrayInt));
         System.out.println("Сумма элементов равна :" + tempForSum);
-
-
 
     }
 
