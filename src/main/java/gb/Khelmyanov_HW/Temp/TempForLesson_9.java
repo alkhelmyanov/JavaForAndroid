@@ -5,7 +5,7 @@ import gb.Khelmyanov_HW.Lesson9.MyArrayDataException;
 public class TempForLesson_9 {
     public static void main (String[] args)
     {
-         String s = "fred";  // используйте это, если вам нужно протестировать //исключение ниже
+       /*  String s = "fred";  // используйте это, если вам нужно протестировать //исключение ниже
         //String s = "100";
 
         try
@@ -19,6 +19,6 @@ public class TempForLesson_9 {
         catch (MyArrayDataException nfe)
         {
             System.out.println("MyArrayDataException: " + nfe.getMessage());
-        }
+        }*/
     }
 }
