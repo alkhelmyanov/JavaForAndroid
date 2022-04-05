@@ -77,6 +77,8 @@ class MySumArray {
         System.out.println("Обновленный массив " + Arrays.deepToString(arrayInt));
         System.out.println("Сумма элементов равна :" + tempForSum);
 
+
+
     }
 
 // 1. как после поимки первого исключения, продолжить работу, менять тип на int и добраться до следующего неправильного значения?
