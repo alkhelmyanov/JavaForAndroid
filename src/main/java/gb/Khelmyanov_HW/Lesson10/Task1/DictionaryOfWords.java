@@ -39,11 +39,11 @@ public class DictionaryOfWords {
         System.out.println("Имеется коллекция dictionaryOfWords :\n" + dictionaryOfWords);
 
         // Создаем сортированный список с исключительными словами из колекциии dictionaryOfWords,  тут же их сравниваем и считаем
-
         Set<String> dictionaryOfWordsUnic = new HashSet<>(dictionaryOfWords);
         System.out.println("\nВ коллекции dictionaryOfWords следующие слова повторяются:");
-        for (String s : dictionaryOfWordsUnic) {
-            System.out.printf("Слово \"%s\" встречается %d раз\n", s, Collections.frequency(dictionaryOfWords, s));
+        //Пробегаемся по коллекции и сравниваем каждое слово из коллекции dictionaryOfWordsUnic со словами из коллекции dictionaryOfWords.
+        for (String unicWord : dictionaryOfWordsUnic) {
+            System.out.printf("Слово \"%s\" встречается %d раз\n", unicWord, Collections.frequency(dictionaryOfWords, unicWord));
         }
 
         System.out.println("\nКоллекция уникальных слов в dictionaryOfWords :\n" + dictionaryOfWordsUnic);
