@@ -1,4 +1,4 @@
-package gb.Khelmyanov_HW.Lesson10;
+package gb.Khelmyanov_HW.Lesson10.Task1;
 
 import java.util.*;
 
