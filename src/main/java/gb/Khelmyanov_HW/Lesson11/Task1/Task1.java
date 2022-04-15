@@ -15,12 +15,8 @@ public class Task1 {
         ArrayList<Object> arrayListObj = new ArrayList<>();
         Collections.addAll(arrayListObj, arrayListInt, arrayListInt, arrayListStr, arrayListStr);
 
-        System.out.println(arrayListInt);
-        System.out.println(arrayListStr);
-        System.out.println(arrayListObj);
-
         ArrrayTask arrrayTask = new ArrrayTask();
-        arrrayTask.changeArrayElementsPosition(arrayListInt, 1, 2);
+        arrrayTask.changeArrayElementsPosition(arrayListInt, 1, 7);
         arrrayTask.changeArrayElementsPosition(arrayListStr, 1, 2);
         arrrayTask.changeArrayElementsPosition(arrayListObj, 1, 2);
     }
