@@ -1,6 +1,6 @@
 package gb.Khelmyanov_HW.Lesson11.Task3;
 
-public class Apple extends Fruit{
+public class Apple extends Fruit implements FruitInterface {
 
     int weight;
 
@@ -12,7 +12,17 @@ public class Apple extends Fruit{
 
     @Override
     public String toString() {
-        return "Яблоко "+ weight +
+        return "Яблоко " + weight +
                 "гр.";
+    }
+
+    @Override
+    public int getFruitWeight() {
+        return weight;
+    }
+
+    @Override
+    public String getName() {
+        return "Яблоко";
     }
 }

@@ -1,7 +1,8 @@
 package gb.Khelmyanov_HW.Lesson11.Task3;
 
-public class Orange extends Fruit {
+public class Orange extends Fruit implements FruitInterface {
     int weight;
+
 
     public Orange(int weight) {
         this.weight = weight;
@@ -11,7 +12,17 @@ public class Orange extends Fruit {
 
     @Override
     public String toString() {
-        return "Апельсин "+ weight +
+        return "Апельсин " + weight +
                 "гр.";
+    }
+
+    @Override
+    public int getFruitWeight() {
+        return weight;
+    }
+
+    @Override
+    public String getName() {
+        return "Апельсин";
     }
 }
